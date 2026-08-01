@@ -1,0 +1,17 @@
+{
+  "domains": [
+    "tamil",
+    "yoruba"
+  ],
+  "seed": 42,
+  "mean_divergence": 39.076,
+  "fusion_gain": 13.8268,
+  "per_domain_divergence": {
+    "tamil": 22.122,
+    "yoruba": 56.031
+  },
+  "best_spec_eq": 1.533359,
+  "moe_eq": 1.321345,
+  "router_tries": 1,
+  "routing_ok": true
+}

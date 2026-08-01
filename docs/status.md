@@ -1,13 +1,30 @@
 # KALAVAI — Project Status
 
-**Last Updated**: 2026-04-10
+**Last Updated**: 2026-07-25
 **Branch**: main
 **Tests**: 149 passing (src/kalavai lib) + 13/13 passing (experiments/tests/test_moe_gpu_offload.py)
 **Source Lines**: ~2,350 (src) + ~2,400 (tests)
 
 ---
 
-## NeurIPS 2026 Paper Sprint
+## NeurIPS 2026 REBUTTAL Sprint (Jul 2026) — reviews in, reject-leaning (3/2/2)
+
+**Discussion window**: Jul 27 – Aug 3 2026. AC's two conditions to reconsider: (1) technical delta from Branch-Train-Mix, (2) downstream accuracy beyond loss. Full detail: `docs/EXPERIMENT_LOG.md` (REB-W1..W7), synthesis `docs/planning/2026-07-25-rebuttal-summary.md`.
+
+| Workstream | Result | Status |
+|---|---|---|
+| **REB-W5** BTX head-to-head (→ condition #1) | KALAVAI +22.7% vs BTX +23.7% gain-vs-base; recovers ~96% of BTX quality with **no expert training / data pooling**. 2 seeds. **Lead novelty argument.** | ✅ Done |
+| **REB-W1** cross-lingual downstream (→ condition #2) | MoE beats best single specialist +11.1/+11.0/+18.4% (3 seeds); FLORES ppl 7–9× drop. Honest limits: cloze loss-adjacent, Belebele near-chance at 410M | ✅ Done |
+| **REB-W6** seed-42 router-collapse fix | fixed by re-init (try 1) | ✅ Done |
+| **REB-W2** divergence–gain predictor held-out validation | **honest negative** — 2/6 held-out in band; predictor is regime-scoped. Recommend softening the paper's claim | ✅ Done |
+| **REB-W7** 7B (Qwen2.5-7B) real-task gamble | HF-resilient run in progress on H100; payoff uncertain (capable base ⇒ modest divergence) | 🔄 Running |
+| REB-W3 centralized baselines / REB-W4 router-privacy | not run (lower priority) | — |
+
+**Compute:** Lambda (orchestrated via API + detached node runs + poll; terminate+verify every instance). ~$20–35 spend incl. 2 spontaneous node deaths. W&B logging to `murai-labs/Kalavai`.
+
+---
+
+## NeurIPS 2026 Paper Sprint (original submission)
 
 **Submission deadline**: May 4, 2026 (abstract) / May 6, 2026 (full paper)
 **Experiment freeze**: April 28, 2026

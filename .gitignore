@@ -80,3 +80,14 @@ results/pythia_6b/held_out_chunks.pkl
 results/pythia_6b/held_out_chunks.pkl
 **/*.pkl
 .gstack/
+docs/planning/2026-07-24-rebuttal-progress.md
+docs/planning/2026-07-25-rebuttal-summary.md
+docs/planning/rebuttal-drafts.md
+docs/planning/2026-07-26-paper-v2-build-spec.md
+docs/planning/2026-07-24-rebuttal-experiment-plan.md
+docs/planning/2026-08-01-revision-checklist.md
+docs/planning/2026-08-01-literature-findings.md
+
+# Scratch build artifacts
+paper/kalavai_test.pdf
+paper/supp_check/

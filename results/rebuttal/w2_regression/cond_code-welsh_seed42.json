@@ -1,0 +1,17 @@
+{
+  "domains": [
+    "code",
+    "welsh"
+  ],
+  "seed": 42,
+  "mean_divergence": 18.952,
+  "fusion_gain": 1.5641,
+  "per_domain_divergence": {
+    "code": 0.473,
+    "welsh": 37.432
+  },
+  "best_spec_eq": 2.585457,
+  "moe_eq": 2.545017,
+  "router_tries": 1,
+  "routing_ok": true
+}

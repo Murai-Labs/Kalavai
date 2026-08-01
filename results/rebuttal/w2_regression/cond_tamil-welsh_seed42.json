@@ -1,0 +1,17 @@
+{
+  "domains": [
+    "tamil",
+    "welsh"
+  ],
+  "seed": 42,
+  "mean_divergence": 29.768,
+  "fusion_gain": 9.3601,
+  "per_domain_divergence": {
+    "tamil": 22.111,
+    "welsh": 37.425
+  },
+  "best_spec_eq": 2.282422,
+  "moe_eq": 2.068784,
+  "router_tries": 1,
+  "routing_ok": true
+}

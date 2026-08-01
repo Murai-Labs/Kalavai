@@ -48,7 +48,13 @@
       "Bash(for f in experiments/results/pythia/pythia_6b_step_sweep/*.json)",
       "Bash(do echo \"=== $f ===\")",
       "Bash(kill 586:*)",
-      "Bash(gh workflow:*)"
+      "Bash(gh workflow:*)",
+      "WebFetch(domain:neurips.cc)",
+      "WebFetch(domain:arxiv.org)",
+      "WebFetch(domain:ad68e8f5.murailabs-web.pages.dev)",
+      "WebFetch(domain:murailabs.com)",
+      "WebFetch(domain:openreview.net)",
+      "WebSearch"
     ]
   }
 }

@@ -1,0 +1,336 @@
+{
+  "seed": 2026,
+  "hf_org": "mechramc",
+  "metrics": {
+    "base": {
+      "cloze_acc": {
+        "tamil": 0.5591,
+        "yoruba": 0.4101,
+        "welsh": 0.2566,
+        "code": 0.5793
+      },
+      "flores": {
+        "tamil": {
+          "ppl": 4.411,
+          "bits_per_byte": 1.0796,
+          "n_sentences": 100
+        },
+        "yoruba": {
+          "ppl": 152.972,
+          "bits_per_byte": 3.7768,
+          "n_sentences": 100
+        },
+        "welsh": {
+          "ppl": 469.334,
+          "bits_per_byte": 3.7589,
+          "n_sentences": 100
+        },
+        "code": null
+      },
+      "belebele": {
+        "tamil": {
+          "accuracy": 0.3,
+          "n": 100,
+          "chance": 0.25
+        },
+        "yoruba": {
+          "accuracy": 0.29,
+          "n": 100,
+          "chance": 0.25
+        },
+        "welsh": null,
+        "code": null
+      },
+      "contin_chrf": {
+        "tamil": {
+          "chrf": 9.495,
+          "n": 30
+        },
+        "yoruba": {
+          "chrf": 5.082,
+          "n": 30
+        },
+        "welsh": {
+          "chrf": 7.534,
+          "n": 30
+        },
+        "code": null
+      }
+    },
+    "tamil_spec": {
+      "cloze_acc": {
+        "tamil": 0.6022,
+        "yoruba": 0.4116,
+        "welsh": 0.2547,
+        "code": 0.5775
+      },
+      "flores": {
+        "tamil": {
+          "ppl": 3.224,
+          "bits_per_byte": 0.8516,
+          "n_sentences": 100
+        },
+        "yoruba": {
+          "ppl": 150.5,
+          "bits_per_byte": 3.7646,
+          "n_sentences": 100
+        },
+        "welsh": {
+          "ppl": 485.969,
+          "bits_per_byte": 3.7802,
+          "n_sentences": 100
+        },
+        "code": null
+      },
+      "belebele": {
+        "tamil": {
+          "accuracy": 0.3,
+          "n": 100,
+          "chance": 0.25
+        },
+        "yoruba": {
+          "accuracy": 0.29,
+          "n": 100,
+          "chance": 0.25
+        },
+        "welsh": null,
+        "code": null
+      },
+      "contin_chrf": {
+        "tamil": {
+          "chrf": 9.797,
+          "n": 30
+        },
+        "yoruba": {
+          "chrf": 5.985,
+          "n": 30
+        },
+        "welsh": {
+          "chrf": 7.304,
+          "n": 30
+        },
+        "code": null
+      }
+    },
+    "yoruba_spec": {
+      "cloze_acc": {
+        "tamil": 0.5485,
+        "yoruba": 0.55,
+        "welsh": 0.2292,
+        "code": 0.5748
+      },
+      "flores": {
+        "tamil": {
+          "ppl": 4.635,
+          "bits_per_byte": 1.1157,
+          "n_sentences": 100
+        },
+        "yoruba": {
+          "ppl": 17.288,
+          "bits_per_byte": 2.1398,
+          "n_sentences": 100
+        },
+        "welsh": {
+          "ppl": 867.921,
+          "bits_per_byte": 4.1345,
+          "n_sentences": 100
+        },
+        "code": null
+      },
+      "belebele": {
+        "tamil": {
+          "accuracy": 0.29,
+          "n": 100,
+          "chance": 0.25
+        },
+        "yoruba": {
+          "accuracy": 0.22,
+          "n": 100,
+          "chance": 0.25
+        },
+        "welsh": null,
+        "code": null
+      },
+      "contin_chrf": {
+        "tamil": {
+          "chrf": 9.868,
+          "n": 30
+        },
+        "yoruba": {
+          "chrf": 7.777,
+          "n": 30
+        },
+        "welsh": {
+          "chrf": 4.361,
+          "n": 30
+        },
+        "code": null
+      }
+    },
+    "welsh_spec": {
+      "cloze_acc": {
+        "tamil": 0.545,
+        "yoruba": 0.3859,
+        "welsh": 0.3713,
+        "code": 0.574
+      },
+      "flores": {
+        "tamil": {
+          "ppl": 4.708,
+          "bits_per_byte": 1.127,
+          "n_sentences": 100
+        },
+        "yoruba": {
+          "ppl": 235.432,
+          "bits_per_byte": 4.1006,
+          "n_sentences": 100
+        },
+        "welsh": {
+          "ppl": 51.152,
+          "bits_per_byte": 2.4044,
+          "n_sentences": 100
+        },
+        "code": null
+      },
+      "belebele": {
+        "tamil": {
+          "accuracy": 0.33,
+          "n": 100,
+          "chance": 0.25
+        },
+        "yoruba": {
+          "accuracy": 0.28,
+          "n": 100,
+          "chance": 0.25
+        },
+        "welsh": null,
+        "code": null
+      },
+      "contin_chrf": {
+        "tamil": {
+          "chrf": 7.865,
+          "n": 30
+        },
+        "yoruba": {
+          "chrf": 5.144,
+          "n": 30
+        },
+        "welsh": {
+          "chrf": 10.049,
+          "n": 30
+        },
+        "code": null
+      }
+    },
+    "code_spec": {
+      "cloze_acc": {
+        "tamil": 0.5501,
+        "yoruba": 0.3993,
+        "welsh": 0.2541,
+        "code": 0.5853
+      },
+      "flores": {
+        "tamil": {
+          "ppl": 4.697,
+          "bits_per_byte": 1.1253,
+          "n_sentences": 100
+        },
+        "yoruba": {
+          "ppl": 208.632,
+          "bits_per_byte": 4.0098,
+          "n_sentences": 100
+        },
+        "welsh": {
+          "ppl": 549.419,
+          "bits_per_byte": 3.8551,
+          "n_sentences": 100
+        },
+        "code": null
+      },
+      "belebele": {
+        "tamil": {
+          "accuracy": 0.32,
+          "n": 100,
+          "chance": 0.25
+        },
+        "yoruba": {
+          "accuracy": 0.29,
+          "n": 100,
+          "chance": 0.25
+        },
+        "welsh": null,
+        "code": null
+      },
+      "contin_chrf": {
+        "tamil": {
+          "chrf": 10.376,
+          "n": 30
+        },
+        "yoruba": {
+          "chrf": 3.148,
+          "n": 30
+        },
+        "welsh": {
+          "chrf": 8.63,
+          "n": 30
+        },
+        "code": null
+      }
+    },
+    "moe": {
+      "cloze_acc": {
+        "tamil": 0.6039,
+        "yoruba": 0.5497,
+        "welsh": 0.3715,
+        "code": 0.586
+      },
+      "flores": {
+        "tamil": {
+          "ppl": 3.228,
+          "bits_per_byte": 0.8524,
+          "n_sentences": 100
+        },
+        "yoruba": {
+          "ppl": 17.487,
+          "bits_per_byte": 2.1484,
+          "n_sentences": 100
+        },
+        "welsh": {
+          "ppl": 51.578,
+          "bits_per_byte": 2.4095,
+          "n_sentences": 100
+        },
+        "code": null
+      },
+      "belebele": {
+        "tamil": {
+          "accuracy": 0.3,
+          "n": 100,
+          "chance": 0.25
+        },
+        "yoruba": {
+          "accuracy": 0.22,
+          "n": 100,
+          "chance": 0.25
+        },
+        "welsh": null,
+        "code": null
+      },
+      "contin_chrf": {
+        "tamil": {
+          "chrf": 9.718,
+          "n": 30
+        },
+        "yoruba": {
+          "chrf": 7.006,
+          "n": 30
+        },
+        "welsh": {
+          "chrf": 10.667,
+          "n": 30
+        },
+        "code": null
+      }
+    }
+  }
+}

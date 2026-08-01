@@ -1,0 +1,16 @@
+{
+  "domains": [
+    "code",
+    "welsh"
+  ],
+  "seed": 42,
+  "mean_divergence": 18.957,
+  "fusion_gain": 1.5663,
+  "per_domain_divergence": {
+    "code": 0.483,
+    "welsh": 37.432
+  },
+  "best_spec_eq": 2.585457,
+  "moe_eq": 2.544961,
+  "timestamp_note": "stamp after run"
+}

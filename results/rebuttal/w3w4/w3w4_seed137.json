@@ -1,0 +1,14 @@
+{
+  "seed": 137,
+  "base_ew": 2.9448,
+  "monolithic_ew": 2.016,
+  "best_spec_ew": 2.723,
+  "moe_indomain_router_ew": 2.2779,
+  "moe_proxy_router_ew": 2.279,
+  "W3_moe_vs_monolithic_pct": -12.99,
+  "W3_monolithic_vs_base_pct": 31.5,
+  "W4_moe_indomain_gain_vs_bestspec_pct": 16.35,
+  "W4_moe_proxy_gain_vs_bestspec_pct": 16.3,
+  "mono_steps": 8000,
+  "note": "reconstructed from run stdout"
+}

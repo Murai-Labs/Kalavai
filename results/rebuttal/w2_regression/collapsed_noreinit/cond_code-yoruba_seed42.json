@@ -1,0 +1,16 @@
+{
+  "domains": [
+    "code",
+    "yoruba"
+  ],
+  "seed": 42,
+  "mean_divergence": 28.24,
+  "fusion_gain": 2.3751,
+  "per_domain_divergence": {
+    "code": 0.453,
+    "yoruba": 56.027
+  },
+  "best_spec_eq": 1.841206,
+  "moe_eq": 1.797476,
+  "timestamp_note": "stamp after run"
+}

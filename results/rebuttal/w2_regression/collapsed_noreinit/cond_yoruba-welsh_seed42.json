@@ -1,0 +1,16 @@
+{
+  "domains": [
+    "yoruba",
+    "welsh"
+  ],
+  "seed": 42,
+  "mean_divergence": 46.736,
+  "fusion_gain": 35.376,
+  "per_domain_divergence": {
+    "yoruba": 56.04,
+    "welsh": 37.432
+  },
+  "best_spec_eq": 3.486172,
+  "moe_eq": 2.252903,
+  "timestamp_note": "stamp after run"
+}

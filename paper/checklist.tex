@@ -112,7 +112,7 @@
 \item {\bf Experiments compute resources}
     \item[] Question: For each experiment, does the paper provide sufficient information on the computer resources (type of compute workers, memory, time of execution) needed to reproduce the experiments?
     \item[] Answer: \answerYes{}
-    \item[] Justification: Pythia-410M and Pythia-1B experiments were run on a single NVIDIA GeForce RTX 5090 (24\,GB VRAM); Pythia-6.9B experiments were run on a cloud-hosted NVIDIA A100 (80\,GB VRAM). Inference latency and VRAM benchmarks for the RTX~5090 are reported in Appendix~I. Training compute is implicitly bounded by the step counts and model sizes given in Section~4.1 (e.g., 50 specialist steps takes under two minutes on the RTX~5090; the main 410M experiments use 2,000 steps per specialist).
+    \item[] Justification: Pythia-410M and Pythia-1B experiments were run on a single NVIDIA GeForce RTX 5090 (32\,GB VRAM); Pythia-6.9B experiments were run on a cloud-hosted NVIDIA A100 (80\,GB VRAM). Inference latency and VRAM benchmarks for the RTX~5090 are reported in Appendix~I. Training compute is implicitly bounded by the step counts and model sizes given in Section~4.1 (e.g., 50 specialist steps takes under two minutes on the RTX~5090; the main 410M experiments use 2,000 steps per specialist).
     \item[] Guidelines:
     \begin{itemize}
         \item The answer \answerNA{} means that the paper does not include experiments.

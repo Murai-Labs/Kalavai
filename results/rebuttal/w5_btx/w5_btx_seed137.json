@@ -1,0 +1,40 @@
+{
+  "seed": 137,
+  "base_eq": 2.944796,
+  "variants": {
+    "uniform": {
+      "eq": 2.631993
+    },
+    "kalavai": {
+      "eq": 2.277004
+    },
+    "btx": {
+      "eq": 2.246236,
+      "steps": 500,
+      "lr": 1e-05
+    }
+  },
+  "improvement_vs_base_pct": {
+    "uniform": 10.622,
+    "kalavai": 22.677,
+    "btx": 23.722
+  },
+  "requires": {
+    "uniform": {
+      "expert_training": false,
+      "data_pooling": false,
+      "router_calib": false
+    },
+    "kalavai": {
+      "expert_training": false,
+      "data_pooling": "router calib set only",
+      "gradient_sharing": false
+    },
+    "btx": {
+      "expert_training": true,
+      "data_pooling": true,
+      "gradient_sharing": true,
+      "joint_finetune": true
+    }
+  }
+}

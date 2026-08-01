@@ -1,0 +1,66 @@
+{
+  "fit_original": {
+    "intercept": -2.7955652335319803,
+    "slope": 0.8335418526212232,
+    "r2": 0.8723337201409953,
+    "slope_ci": [
+      0.5149997213029759,
+      1.1520839839394705
+    ]
+  },
+  "held_out": {
+    "n": 6,
+    "in_band": 2,
+    "rmse_pp": 12.282232933812962,
+    "points": [
+      {
+        "label": "code+welsh",
+        "div": 18.952,
+        "gain": 1.5641,
+        "pred": 13.001719957345443,
+        "in_band": false
+      },
+      {
+        "label": "code+yoruba",
+        "div": 28.241,
+        "gain": 2.3535,
+        "pred": 20.74449022634398,
+        "in_band": false
+      },
+      {
+        "label": "tamil+welsh",
+        "div": 29.768,
+        "gain": 9.3601,
+        "pred": 22.01730863529659,
+        "in_band": false
+      },
+      {
+        "label": "tamil+yoruba+welsh",
+        "div": 38.532,
+        "gain": 33.893,
+        "pred": 29.322469431668985,
+        "in_band": true
+      },
+      {
+        "label": "tamil+yoruba",
+        "div": 39.076,
+        "gain": 13.8268,
+        "pred": 29.775916199494937,
+        "in_band": false
+      },
+      {
+        "label": "yoruba+welsh",
+        "div": 46.729,
+        "gain": 35.3786,
+        "pred": 36.15501199760516,
+        "in_band": true
+      }
+    ]
+  },
+  "refit_all": {
+    "n": 14,
+    "intercept": -2.789266305914365,
+    "slope": 0.6619227097153361,
+    "r2": 0.5738639311387201
+  }
+}

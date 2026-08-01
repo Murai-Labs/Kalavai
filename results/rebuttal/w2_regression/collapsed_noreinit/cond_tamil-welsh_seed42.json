@@ -1,0 +1,16 @@
+{
+  "domains": [
+    "tamil",
+    "welsh"
+  ],
+  "seed": 42,
+  "mean_divergence": 29.775,
+  "fusion_gain": 9.3545,
+  "per_domain_divergence": {
+    "tamil": 22.111,
+    "welsh": 37.438
+  },
+  "best_spec_eq": 2.282344,
+  "moe_eq": 2.068842,
+  "timestamp_note": "stamp after run"
+}

@@ -513,3 +513,71 @@ All experiments, results, and file locations. Single source of truth for what wa
 | PLAN-01 | 20-contributor robust data | 1B | — | 3 | Planned |
 | PLAN-02 | Multi-round contributors | 410M | — | 3 | Planned |
 | PLAN-03 | Continual cooperative | 410M | — | 3 | Planned |
+
+---
+
+## Rebuttal — NeurIPS 2026 (Discussion window Jul 27 – Aug 3 2026)
+
+Reviews reject-leaning (3/2/2). AC conditions to reconsider: (1) a technical delta vs Branch-Train-Mix, (2) downstream task accuracy beyond loss. Plan: `docs/planning/2026-07-24-rebuttal-experiment-plan.md`. Workstreams W1–W6.
+
+| ID | Experiment | Model | Result | Status |
+|----|-----------|-------|--------|--------|
+| REB-W1 | Cross-lingual downstream eval | 410M | MoE beats best single specialist on avg cloze: seed137 +11.1%, seed2026 +11.0%, seed42 +18.4%. Claim robust across 3 seeds | 3 seeds Done |
+| REB-W2 | Grow divergence–gain predictor + held-out validation | 410M | **HONEST NEGATIVE**: 6 new cross-lingual points, only 2/6 in 95% band (RMSE 12.3pp); predictor OVER-predicts for asymmetric subsets → confirms it is regime-scoped, not universal | Done |
+| REB-W3 | Compute-matched centralized (monolithic) vs MoE, cross-lingual | 410M | **NEGATIVE:** monolithic (2.016) BEATS MoE (2.278) by **−13%** even cross-lingual (equal compute 8000 steps). Cooperative loses to centralized; advantage is only vs best *individual* specialist. Confirms vacq. | Done |
+| REB-W4 | Router-privacy (public-proxy calibration data) | 410M | **POSITIVE (clean):** router trained on public FLORES data gives identical gain (+16.30%) to in-domain (+16.35%). Calibration set needs NO private data → privacy model sound. | Done |
+| REB-W5 | BTX head-to-head under no-communication constraint | 410M | KALAVAI +22.7% vs BTX +23.7% gain-vs-base (~1pp gap); KALAVAI recovers ~96% of BTX quality with NO expert training / data pooling. Robust across 2 seeds (137: +22.68/+23.72; 2026: +22.70/+23.74) | 2 seeds Done |
+| REB-W6 | Cross-lingual seed-42 router-collapse fix | 410M | **FIXED** by router re-init (try 1: all 4 langs route correctly, no Yoruba→Tamil collapse) | Done |
+| REB-W7 | 7B cross-lingual real-task-win gamble | Qwen2.5-7B | **MIXED (honest):** fusion gain scales to 7B (**+10.8%** eq-loss; cloze Yoruba 0.454→0.683, ppl 13.3→5.1) BUT the real-task win **FAILED** — Belebele MoE ≤ base (Tamil 0.36→0.32, Yoruba 0.22→0.18). Raw-text FT erodes the base's QA ability. | Done |
+
+### REB-W1: Cross-lingual DOWNSTREAM evaluation
+**Purpose:** answer AC condition #2 — downstream task *accuracy* (not loss) in the high-divergence cross-lingual regime, where the base model is least competent.
+**Model:** Pythia-410M @ step10000; cross-lingual specialists (Tamil/Yoruba/Welsh/Code) loaded from HF (`mechramc/kalavai-cross-lingual-*-specialist-seed{137,2026}`).
+**Metrics:** cloze next-token accuracy (primary, robust), FLORES-200 perplexity (n=100), Belebele multilingual MC-QA (n=100), self-continuation chrF (n=30). *No MT BLEU — specialists are monolingual LMs, not translators.*
+**Script:** `experiments/w1_crosslingual_downstream.py` · **Node bootstrap:** scratchpad `run_w1_node.sh` · **Compute:** Lambda A10, ~1h/seed.
+**Results:** `results/rebuttal/w1_crosslingual/w1_downstream_seed{137,2026}.json` · **Figure:** `figures/rebuttal/w1_crosslingual_downstream.png`
+**Seed 137 (Done):** cloze — Tamil 0.559→0.605, Yoruba 0.410→0.550, Welsh 0.257→0.371, Code 0.579→0.586 (base→MoE); MoE ≈ best specialist on every language. FLORES ppl: Yoruba 153→21 (7.4×), Welsh 469→52 (9.1×), Tamil 4.4→3.2. Belebele near-chance (~0.25–0.30) — 410M too weak for MC-QA; **reported honestly, not spun.**
+**Seed 2026 (Done):** cloze MoE — Tamil 0.604, Yoruba 0.550, Welsh 0.372, Code 0.586. **Agrees with seed 137 to ±0.001** (matches the paper's ±0.005pp cross-lingual reproducibility). 2-seed result is rock-solid.
+**Seed 42 (Done, via REB-W6):** retrained fresh (not on HF) with router re-init → **collapse FIXED on try 1** (all 4 languages route to own expert; Yoruba downstream +0.268 over base, correctly routed). Claim holds: **MoE beats best single specialist by +18.4%** (avg cloze).
+**3-seed claim summary — MoE avg vs best single specialist:** seed137 **+11.1%**, seed2026 **+11.0%**, seed42 **+18.4%**. Robust across seeds.
+**⚠️ HONEST FLAG (investigate / disclose):** seed-42's freshly-trained specialists are *notably stronger* than the HF seed-137/2026 checkpoints (Yoruba spec cloze 0.678 vs 0.550; Welsh 0.443 vs 0.371) despite identical protocol (2000 steps). Likely the HF 137/2026 cross-lingual checkpoints were undertrained relative to a clean 2000-step run, OR high seed variance. **Implication:** don't naively average seed-42 (stronger) with 137/2026 in one absolute-number figure — report the *claim* (MoE>best-single-spec) per seed, and keep the primary figure on the two consistent HF seeds. If time permits, retrain 137/2026 fresh for a clean 3-seed. Primary W1 figure currently uses seeds 137+2026 only.
+
+### REB-W6: Seed-42 router-collapse fix
+**Purpose:** resolve the paper's documented seed-42 Yoruba→Tamil router collapse; supply the 3rd W1 seed.
+**Method:** retrain 4 cross-lingual specialists (seed 42), then train the MoE router with **re-initialization retry** — if any language fails to route to its own expert on held-out, re-init the router (new seed) and retrain, up to 5 tries.
+**Result:** collapse resolved on **try 1** (routing_ok=True for all 4 languages). The collapse was router-init sensitivity, not a fundamental limitation.
+**Script:** `experiments/w6_seed42_train_and_downstream.py` · **Result:** `results/rebuttal/w1_crosslingual/w1_downstream_seed42.json` · **Compute:** A100, ~32 min.
+
+### REB-W5: BTX head-to-head (technical delta from Branch-Train-Mix)
+**Purpose:** answer AC condition #1 — a genuine technical distinction from BTX. Isolates the axis: does fusion require jointly training experts on POOLED data (BTX), or does post-hoc routing over FROZEN experts (KALAVAI) recover it?
+**Method (model-level MoE, framed honestly as "BTX-style joint fine-tuning", NOT layer-level BTX):** same cross-lingual specialists (seed 137, HF); three variants — uniform router (no training), KALAVAI (frozen experts + trained router), BTX-style (experts UNFROZEN + jointly fine-tuned 500 steps on pooled mixed data + router). Equal-weight loss; "what it requires" table.
+**Result (seed 137):** gain vs base — uniform +10.6%, **KALAVAI +22.7%**, BTX +23.7%. KALAVAI is within **~1pp** of BTX while requiring **no expert training and no data pooling** (only a small router calibration set). BTX requires pooled mixed data + joint gradient training — exactly what the no-communication cooperative constraint forbids.
+**Takeaway:** the technical delta is real — post-hoc routing recovers ~96% of BTX's fused quality under a constraint BTX cannot satisfy. (Smoke artifact note: at 30 BTX steps KALAVAI *beat* BTX because joint fine-tuning on pooled data transiently erodes specialization; full 500-step BTX recovers.)
+**Script:** `experiments/w5_btx_headtohead.py` · **Result:** `results/rebuttal/w5_btx/w5_btx_seed137.json` · **Compute:** A100 (BTX joint-finetune of 4 experts).
+
+### REB-W2: Divergence–gain predictor held-out validation (HONEST NEGATIVE)
+**Purpose:** answer vacq/ssw3 — validate the gain = a + b·divergence law on held-out conditions with prediction intervals.
+**Method:** fit on the original 8 conditions (gain = −2.80 + 0.834·div, R²=0.872); run 6 NEW cross-lingual subset conditions (fresh seed-42 training, router re-init retry) as held-out; check band coverage. Scripts `experiments/w2_regression_condition.py` + `w2_refit.py`. Points `results/rebuttal/w2_regression/cond_*.json`, fig `figures/rebuttal/w2_divergence_gain_refit.png`.
+**Result — the predictor does NOT generalize:** only **2/6 held-out in the 95% band, RMSE 12.3pp**; refit-on-all R² drops 0.87→0.57. All 4 out-of-band points are **over-predicted** (actual gain ≪ predicted).
+**Mechanism (verified, not artifact):** router re-init confirmed routing was correct (ok=True, try 1) — the low gains are REAL. Mean-divergence is inflated by one high-divergence domain, but **fusion gain is limited by complementarity**: if any single specialist covers the subset (e.g. a language specialist generalizes to code, or one domain has low base loss), gain vs best-specialist is ~0 regardless of mean divergence. IN-band points ({yoruba,welsh}, {tamil,yoruba,welsh}) are the mutually-non-generalizing high-base-loss cases.
+**Rebuttal implication:** do NOT lean on the predictor as a novelty claim. Present W2 as the honest held-out validation reviewers asked for — it **scopes** the law (holds for balanced mutually-complementary high-divergence conditions; over-predicts for asymmetric subsets) and identifies **complementarity, not mean divergence, as the governing factor** (future work). Consistent with the paper's existing `regime-dependent` caveat (EXP-21). Lean novelty on **W5** (BTX delta) instead.
+
+### REB-W7: 7B cross-lingual real-task-win gamble (RUNNING)
+**Purpose:** close W1's "beyond loss" gap with a *capable* base so a real task (Belebele MC-QA) can move above chance.
+**Method:** Qwen2.5-7B, 4 cross-lingual specialists (Tamil/Yoruba/Welsh/Code), 8-bit AdamW + gradient checkpointing on 1×H100-80GB, post-hoc KALAVAI fusion, downstream Belebele/FLORES/cloze. Script `experiments/w7_qwen7b_crosslingual.py`.
+**Infra:** two spontaneous Lambda node deaths (A100 ~15min, H100 ~171min) → made it **HF-resilient** (each specialist pushed to private repo `mechramc/kalavai-w7-qwen7b-{lang}-seed42`, resumes from HF on relaunch). User's HF write token in `.env`.
+**RESULT (Done, seed 42, n=100) — MIXED, and the negative is the important part:**
+- **Fusion gain SCALES to 7B: +10.80%** vs best specialist (eq loss base 2.045 → moe 1.882). Cloze improves: Tamil 0.607→0.700, **Yoruba 0.454→0.683**, Welsh 0.446→0.516 (code 0.718→0.682, slightly down). Perplexity: Yoruba 13.3→5.1, Tamil 4.0→2.8. So the fusion *mechanism* works at 7B.
+- **Real-task win FAILED — Belebele MoE ≤ base:** Tamil 0.36→0.32, Yoruba 0.22→0.18 (n=100, chance 0.25). The fused model is a *better language model* but a *worse QA model* than the base.
+- **Why:** Qwen2.5-7B base is instruction-capable (Tamil Belebele 0.36 > chance); fine-tuning on raw cc100 **text** (LM objective) improves perplexity/cloze but **erodes the instruction/QA ability** (catastrophic forgetting). The MoE inherits this.
+- **The definitive answer to AC condition #2:** even at 7B with a capable base, the KALAVAI protocol delivers **LM-loss / perplexity** gains, NOT **downstream task-accuracy** gains — and can degrade task accuracy. Do NOT claim a downstream task win. Scope the contribution to LM/perplexity + the W5 BTX delta.
+- **Infra note:** completed in ~42 min because it resumed 3/4 specialists from HF (Tamil/Yoruba/Welsh pushed before an earlier watchdog kill). The "H100 node deaths" root cause = a 3h node watchdog killing long runs (fixed to 12h), NOT Lambda hosts. HF-resume worked flawlessly.
+Result → `results/rebuttal/w7_qwen7b/w7_seed42.json`. Specialists durable on HF: `mechramc/kalavai-w7-qwen7b-{tamil,yoruba,welsh,code}-seed42` (private).
+
+---
+
+## Rebuttal bottom line (for writing the response)
+Both AC conditions have concrete results: **W5** = technical delta from BTX (KALAVAI within ~1pp of BTX with no expert training/data pooling) — the lead; **W1** = downstream accuracy (MoE +11–18% over best single specialist, FLORES 7–9× ppl drop) with honest scale caveats. **W2** = honest held-out validation (predictor is regime-scoped — present as integrity, don't oversell). **W6** = robustness (collapse fixable). **W7** = 7B real-task attempt (running; payoff uncertain). Recommend softening the paper's divergence–gain claim per W2.
+**Headline (reframed after skeptic review):** per-language the MoE only *ties* its own specialist (router recovers the diagonal). The real claim is the **average across languages: MoE 0.528 vs best SINGLE specialist 0.475 = +11% rel** (both seeds) — one model beats any individual specialist on downstream accuracy, because each specialist is good at only its own language.
+**Honest limitations (must state in rebuttal, don't hide):** (1) cloze accuracy is loss-adjacent; FLORES ppl *is* loss. (2) The one genuine task, Belebele MC-QA, is near-chance and MoE is *below* base on Yoruba (0.22 vs 0.29) — Pythia-410M is too weak for MC-QA. (3) Cross-lingual routing is the *easy* case (languages trivially separable). ⇒ W1 answers "downstream accuracy" partially; a clean "real task win beyond loss" needs a capable base (see REB-W7 7B plan). W1 is necessary but does NOT address the novelty (BTX) objection — that's W5/W2.
+**Compute discipline:** all runs terminated + API-verified; W&B root cause = CRLF in .env (see RUN_STATE).

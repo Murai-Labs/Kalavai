@@ -1,0 +1,17 @@
+{
+  "domains": [
+    "code",
+    "yoruba"
+  ],
+  "seed": 42,
+  "mean_divergence": 28.241,
+  "fusion_gain": 2.3535,
+  "per_domain_divergence": {
+    "code": 0.443,
+    "yoruba": 56.04
+  },
+  "best_spec_eq": 1.84076,
+  "moe_eq": 1.797438,
+  "router_tries": 1,
+  "routing_ok": true
+}
